@@ -1,0 +1,36 @@
+{
+  "language": { "label": "Language", "english": "English", "french": "French" },
+  "login": {
+    "welcome": "Welcome back",
+    "subtitle": "Enter your credentials to continue",
+    "identifier": "Email address / Phone / Username",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "identifierRequired": "Email, phone, or username is required",
+    "passwordRequired": "Password is required",
+    "passwordTooLong": "Password must be less than 50 characters",
+    "agreementRequired": "You must agree to continue",
+    "authenticationFailed": "Authentication failed"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "containerMovements": "Container Entry / Exit",
+    "vehicleMovements": "Vehicle Entry / Exit",
+    "kpi": "KPI",
+    "territories": "Territories",
+    "country": "Country",
+    "province": "Province",
+    "area": "Area",
+    "warehouse": "Warehouse",
+    "register": "Register",
+    "entry": "Entry",
+    "exit": "Exit",
+    "management": "Management",
+    "users": "Users",
+    "notifications": "Notifications",
+    "userLogs": "User logs"
+  }
+}

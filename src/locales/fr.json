@@ -1,0 +1,36 @@
+{
+  "language": { "label": "Langue", "english": "Anglais", "french": "Français" },
+  "login": {
+    "welcome": "Bon retour",
+    "subtitle": "Saisissez vos identifiants pour continuer",
+    "identifier": "Adresse e-mail / Téléphone / Nom d'utilisateur",
+    "password": "Mot de passe",
+    "remember": "Se souvenir de moi",
+    "forgot": "Mot de passe oublié ?",
+    "submit": "Se connecter",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "identifierRequired": "L'e-mail, le téléphone ou le nom d'utilisateur est requis",
+    "passwordRequired": "Le mot de passe est requis",
+    "passwordTooLong": "Le mot de passe doit contenir moins de 50 caractères",
+    "agreementRequired": "Vous devez accepter pour continuer",
+    "authenticationFailed": "Échec de l'authentification"
+  },
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "containerMovements": "Entrée / Sortie des conteneurs",
+    "vehicleMovements": "Entrée / Sortie des véhicules",
+    "kpi": "Indicateurs",
+    "territories": "Territoires",
+    "country": "Pays",
+    "province": "Province",
+    "area": "Zone",
+    "warehouse": "Entrepôt",
+    "register": "Registre",
+    "entry": "Entrée",
+    "exit": "Sortie",
+    "management": "Gestion",
+    "users": "Utilisateurs",
+    "notifications": "Notifications",
+    "userLogs": "Journal des utilisateurs"
+  }
+}
