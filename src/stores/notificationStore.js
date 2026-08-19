@@ -1,3 +1,4 @@
+import { mdiAlertCircleOutline, mdiAlertOutline, mdiBellOutline, mdiCheckCircleOutline, mdiInformationOutline } from '@mdi/js';
 import { defineStore } from 'pinia';
 
 export const useNotificationStore = defineStore('notification', {
@@ -5,24 +6,24 @@ export const useNotificationStore = defineStore('notification', {
     show: false,
     message: '',
     color: 'success',
-    icon: 'mdi-check-circle',
+    icon: mdiCheckCircleOutline,
     timeout: 4000,
     notifications: []
   }),
   actions: {
     notify({ message, color = 'success', timeout = 4000 }) {
       const icons = {
-        success: 'mdi-check-circle-outline',
-        error: 'mdi-alert-circle-outline',
-        warning: 'mdi-alert-outline',
-        info: 'mdi-information-outline'
+        success: mdiCheckCircleOutline,
+        error: mdiAlertCircleOutline,
+        warning: mdiAlertOutline,
+        info: mdiInformationOutline
       };
 
       const notification = {
         id: Date.now() + Math.random(),
         message,
         color,
-        icon: icons[color] || 'mdi-bell-outline',
+        icon: icons[color] || mdiBellOutline,
         timeout
       };
 
