@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bms-stock-v2';
+const CACHE_NAME = 'bms-stock-v3';
 const BASE_URL = self.registration.scope;
 const APP_SHELL = [BASE_URL, `${BASE_URL}manifest.json`, `${BASE_URL}assets/logo.png`, `${BASE_URL}assets/icon-192.png`, `${BASE_URL}assets/icon-512.png`];
 
