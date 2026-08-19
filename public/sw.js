@@ -1,5 +1,6 @@
-const CACHE_NAME = 'bms-stock-v1';
-const APP_SHELL = ['/', '/manifest.json', '/assets/logo.png', '/assets/icon-192.png', '/assets/icon-512.png'];
+const CACHE_NAME = 'bms-stock-v2';
+const BASE_URL = self.registration.scope;
+const APP_SHELL = [BASE_URL, `${BASE_URL}manifest.json`, `${BASE_URL}assets/logo.png`, `${BASE_URL}assets/icon-192.png`, `${BASE_URL}assets/icon-512.png`];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -19,12 +20,12 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
 
   if (event.request.mode === 'navigate') {
-    event.respondWith(fetch(event.request).catch(() => caches.match('/')));
+    event.respondWith(fetch(event.request).catch(() => caches.match(BASE_URL)));
     return;
   }
 
   const cacheableDestinations = ['font', 'image', 'script', 'style'];
-  const isStaticAsset = cacheableDestinations.includes(event.request.destination) || new URL(event.request.url).pathname === '/manifest.json';
+  const isStaticAsset = cacheableDestinations.includes(event.request.destination) || event.request.url === `${BASE_URL}manifest.json`;
   if (!isStaticAsset) return;
 
   event.respondWith(

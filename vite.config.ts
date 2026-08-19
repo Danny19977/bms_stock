@@ -17,7 +17,7 @@ export default defineConfig({
       autoImport: true
     })
   ],
-  base: '/',
+  base: '/bms_stock/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
