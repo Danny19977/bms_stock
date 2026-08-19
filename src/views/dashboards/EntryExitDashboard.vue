@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import DashboardColumnPicker from '@/components/shared/DashboardColumnPicker.vue';
 import { exportDashboard, type ExportColumn } from '@/utils/helpers/dashboard-export';
@@ -58,7 +59,7 @@ const filters = ref({
   overdue_only: false
 });
 const showFilters = ref(true);
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/dashboard`;
+const apiBaseUrl = apiUrl('dashboard');
 
 const formatDate = (value?: string | null) => (value ? new Date(value).toLocaleDateString('fr-FR') : '—');
 const allColumns: ExportColumn<DashboardRow>[] = [

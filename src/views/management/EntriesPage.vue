@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { PencilIcon, TrashIcon } from 'vue-tabler-icons';
@@ -121,9 +122,9 @@ const alertType = ref<'success' | 'error'>('success');
 const deleteDialog = ref(false);
 const itemToDelete = ref<EntryRecord | null>(null);
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/entries`;
-const vehicleApiBaseUrl = `${import.meta.env.VITE_API_URL}/v1/entryv`;
-const containerApiBaseUrl = `${import.meta.env.VITE_API_URL}/containers`;
+const apiBaseUrl = apiUrl('entries');
+const vehicleApiBaseUrl = apiUrl('v1/entryv');
+const containerApiBaseUrl = apiUrl('containers');
 
 type TableHeader = {
   title: string;
@@ -320,7 +321,7 @@ const loadContainers = async () => {
 
 const loadExits = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/exists/all`)) as ApiListResponse<ExitRecord>;
+    const response = (await fetchWrapper.get(apiUrl('exists/all'))) as ApiListResponse<ExitRecord>;
     exits.value = response.data || [];
   } catch (error) {
     notify(error as string, 'error');

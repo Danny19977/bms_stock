@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { useNotification } from '@/composables/useNotification';
@@ -55,7 +56,7 @@ const alertType = ref<'success' | 'error'>('success');
 const deleteDialog = ref(false);
 const itemToDelete = ref<CountryRecord | null>(null);
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/countries`;
+const apiBaseUrl = apiUrl('countries');
 const headers = [
   { title: 'Name', key: 'name' },
   { title: 'Total Provinces', key: 'total_provinces' },

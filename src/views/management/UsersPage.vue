@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { useNotification } from '@/composables/useNotification';
@@ -98,7 +99,7 @@ const permissionOptions: PermissionOption[] = [
   { code: 'V', label: 'View' }
 ];
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/users`;
+const apiBaseUrl = apiUrl('users');
 const headers = [
   { title: 'Full Name', key: 'fullname' },
   { title: 'Email', key: 'email' },
@@ -252,10 +253,10 @@ const loadUsers = async () => {
 const loadReferenceData = async () => {
   try {
     const [countriesResponse, provincesResponse, areasResponse, warehousesResponse] = await Promise.all([
-      fetchWrapper.get(`${import.meta.env.VITE_API_URL}/countries/all`) as Promise<ApiListResponse<SelectOption>>,
-      fetchWrapper.get(`${import.meta.env.VITE_API_URL}/provinces/all`) as Promise<ApiListResponse<SelectOption>>,
-      fetchWrapper.get(`${import.meta.env.VITE_API_URL}/areas/all`) as Promise<ApiListResponse<SelectOption>>,
-      fetchWrapper.get(`${import.meta.env.VITE_API_URL}/warehouses/all`) as Promise<ApiListResponse<SelectOption>>
+      fetchWrapper.get(apiUrl('countries/all')) as Promise<ApiListResponse<SelectOption>>,
+      fetchWrapper.get(apiUrl('provinces/all')) as Promise<ApiListResponse<SelectOption>>,
+      fetchWrapper.get(apiUrl('areas/all')) as Promise<ApiListResponse<SelectOption>>,
+      fetchWrapper.get(apiUrl('warehouses/all')) as Promise<ApiListResponse<SelectOption>>
     ]);
 
     countries.value = (countriesResponse.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed' }));

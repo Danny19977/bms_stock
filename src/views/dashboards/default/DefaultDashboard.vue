@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 
 type EntityTab = 'containers' | 'vehicles';
@@ -142,7 +143,7 @@ const loadKPI = async () => {
   errorMessage.value = '';
   try {
     const params = new URLSearchParams({ entity: activeTab.value, ...filters.value });
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/dashboard/kpi/movements?${params}`)) as { data?: KPIData };
+    const response = (await fetchWrapper.get(`${apiUrl('dashboard/kpi/movements')}?${params}`)) as { data?: KPIData };
     if (response.data) data.value = response.data;
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : 'Impossible de charger les indicateurs';
@@ -153,7 +154,7 @@ const loadKPI = async () => {
 
 const loadTerritories = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/dashboard/territories`)) as { data?: TerritoryData };
+    const response = (await fetchWrapper.get(apiUrl('dashboard/territories'))) as { data?: TerritoryData };
     if (!response.data) return;
     territoryData.value = response.data;
     filters.value.country_uuid = response.data.scope.country_uuid || '';

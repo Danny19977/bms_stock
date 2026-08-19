@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 import { router } from '@/router';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useNotificationStore } from '@/stores/notificationStore';
 
-const apiBaseUrl = import.meta.env.VITE_API_URL.replace(/\/+$/, '');
-const baseUrl = `${apiBaseUrl.endsWith('/api') ? apiBaseUrl : `${apiBaseUrl}/api`}/auth`;
+const baseUrl = apiUrl('auth');
 
 export const useAuthStore = defineStore({
   id: 'auth',

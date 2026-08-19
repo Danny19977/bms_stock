@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useNotification } from '@/composables/useNotification';
 import { PencilIcon, TrashIcon } from 'vue-tabler-icons';
@@ -67,7 +68,7 @@ const alertType = ref<'success' | 'error'>('success');
 const deleteDialog = ref(false);
 const itemToDelete = ref<AreaRecord | null>(null);
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/areas`;
+const apiBaseUrl = apiUrl('areas');
 const headers = [
   { title: 'Country', key: 'country_name' },
   { title: 'Province', key: 'province_name' },
@@ -163,7 +164,7 @@ const getProvinceName = (provinceUuid?: string | null) => {
 
 const loadCountries = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/countries/all`)) as ApiListResponse<CountryOption>;
+    const response = (await fetchWrapper.get(apiUrl('countries/all'))) as ApiListResponse<CountryOption>;
     countries.value = (response.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed' }));
   } catch (error) {
     notify(error as string, 'error');
@@ -172,7 +173,7 @@ const loadCountries = async () => {
 
 const loadProvinces = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/provinces/all`)) as ApiListResponse<ProvinceOption>;
+    const response = (await fetchWrapper.get(apiUrl('provinces/all'))) as ApiListResponse<ProvinceOption>;
     provinces.value = (response.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed', country_uuid: item.country_uuid }));
   } catch (error) {
     notify(error as string, 'error');

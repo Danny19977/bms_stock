@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { useNotification } from '@/composables/useNotification';
@@ -140,11 +141,11 @@ const alertType = ref<'success' | 'error'>('success');
 const deleteDialog = ref(false);
 const itemToDelete = ref<ExitRecord | null>(null);
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/exists`;
-const vehicleApiBaseUrl = `${import.meta.env.VITE_API_URL}/v1/existv`;
-const vehicleEntryApiBaseUrl = `${import.meta.env.VITE_API_URL}/v1/entryv`;
-const containerApiBaseUrl = `${import.meta.env.VITE_API_URL}/containers`;
-const entryApiBaseUrl = `${import.meta.env.VITE_API_URL}/entries`;
+const apiBaseUrl = apiUrl('exists');
+const vehicleApiBaseUrl = apiUrl('v1/existv');
+const vehicleEntryApiBaseUrl = apiUrl('v1/entryv');
+const containerApiBaseUrl = apiUrl('containers');
+const entryApiBaseUrl = apiUrl('entries');
 
 type TableHeader = {
   title: string;

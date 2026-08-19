@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { useNotification } from '@/composables/useNotification';
@@ -83,7 +84,7 @@ const alertType = ref<'success' | 'error'>('success');
 const deleteDialog = ref(false);
 const itemToDelete = ref<WarehouseRecord | null>(null);
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/warehouses`;
+const apiBaseUrl = apiUrl('warehouses');
 const headers = [
   { title: 'Country', key: 'country_name' },
   { title: 'Province', key: 'province_name' },
@@ -191,7 +192,7 @@ const closeDeleteDialog = () => {
 
 const loadCountries = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/countries/all`)) as ApiListResponse<CountryOption>;
+    const response = (await fetchWrapper.get(apiUrl('countries/all'))) as ApiListResponse<CountryOption>;
     countries.value = (response.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed' }));
   } catch (error) {
     notify(error as string, 'error');
@@ -200,7 +201,7 @@ const loadCountries = async () => {
 
 const loadProvinces = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/provinces/all`)) as ApiListResponse<ProvinceOption>;
+    const response = (await fetchWrapper.get(apiUrl('provinces/all'))) as ApiListResponse<ProvinceOption>;
     provinces.value = (response.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed', country_uuid: item.country_uuid }));
   } catch (error) {
     notify(error as string, 'error');
@@ -209,7 +210,7 @@ const loadProvinces = async () => {
 
 const loadAreas = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/areas/all`)) as ApiListResponse<AreaOption>;
+    const response = (await fetchWrapper.get(apiUrl('areas/all'))) as ApiListResponse<AreaOption>;
     areas.value = (response.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed', province_uuid: item.province_uuid }));
   } catch (error) {
     notify(error as string, 'error');

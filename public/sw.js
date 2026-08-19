@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bms-stock-v3';
+const CACHE_NAME = 'bms-stock-v4';
 const BASE_URL = self.registration.scope;
 const APP_SHELL = [BASE_URL, `${BASE_URL}manifest.json`, `${BASE_URL}assets/logo.png`, `${BASE_URL}assets/icon-192.png`, `${BASE_URL}assets/icon-512.png`];
 
@@ -17,7 +17,8 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
+  const requestUrl = new URL(event.request.url);
+  if (event.request.method !== 'GET' || requestUrl.origin !== self.location.origin || requestUrl.pathname.startsWith('/api/')) return;
 
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request).catch(() => caches.match(BASE_URL)));

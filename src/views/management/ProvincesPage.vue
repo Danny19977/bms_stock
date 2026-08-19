@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { useNotification } from '@/composables/useNotification';
@@ -62,7 +63,7 @@ const alertType = ref<'success' | 'error'>('success');
 const deleteDialog = ref(false);
 const itemToDelete = ref<ProvinceRecord | null>(null);
 
-const apiBaseUrl = `${import.meta.env.VITE_API_URL}/provinces`;
+const apiBaseUrl = apiUrl('provinces');
 const headers = [
   { title: 'Country', key: 'country_name' },
   { title: 'Name', key: 'name' },
@@ -130,7 +131,7 @@ const getCountryName = (countryUuid: string) => {
 
 const loadCountries = async () => {
   try {
-    const response = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/countries/all`)) as ApiListResponse<CountryOption>;
+    const response = (await fetchWrapper.get(apiUrl('countries/all'))) as ApiListResponse<CountryOption>;
     countries.value = (response.data || []).filter((item) => item?.uuid).map((item) => ({ uuid: item.uuid, name: item.name || 'Unnamed' }));
   } catch (error) {
     notify(error as string, 'error');

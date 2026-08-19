@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import DashboardColumnPicker from '@/components/shared/DashboardColumnPicker.vue';
 import { exportDashboard, type ExportColumn } from '@/utils/helpers/dashboard-export';
@@ -54,8 +55,8 @@ const filters = ref({
   end_date: ''
 });
 
-const vehicleEntryUrl = `${import.meta.env.VITE_API_URL}/v1/entryv`;
-const vehicleExitUrl = `${import.meta.env.VITE_API_URL}/v1/existv`;
+const vehicleEntryUrl = apiUrl('v1/entryv');
+const vehicleExitUrl = apiUrl('v1/existv');
 const statusOptions = [
   { label: 'Tous', value: 'all' },
   { label: 'En Dépôt', value: 'in_yard' },

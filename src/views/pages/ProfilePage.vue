@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useTheme } from 'vuetify';
 import { CameraIcon, LockIcon, ShieldCheckIcon, UserIcon } from 'vue-tabler-icons';
+import { apiUrl } from '@/utils/helpers/api-url';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useAuthStore } from '@/stores/auth';
 import { useNotification } from '@/composables/useNotification';
@@ -63,11 +64,11 @@ const syncAuthUser = (user: ProfileUser) => {
 const loadProfile = async () => {
   loading.value = true;
   try {
-    const user = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/auth/user`)) as unknown as ProfileUser;
+    const user = (await fetchWrapper.get(apiUrl('auth/user'))) as unknown as ProfileUser;
     profile.value = user;
     infoForm.value = { fullname: user.fullname || '', email: user.email || '', phone: user.phone || '' };
     syncAuthUser(user);
-    const activity = (await fetchWrapper.get(`${import.meta.env.VITE_API_URL}/users-logs/all/paginate/${user.uuid}?page=1&limit=1`)) as { pagination?: { total_records?: number } };
+    const activity = (await fetchWrapper.get(`${apiUrl(`users-logs/all/paginate/${user.uuid}`)}?page=1&limit=1`)) as { pagination?: { total_records?: number } };
     activityCount.value = Number(activity.pagination?.total_records || 0);
   } catch (error) {
     showError(String(error));
@@ -104,7 +105,7 @@ const saveProfile = async () => {
     body.append('email', infoForm.value.email.trim());
     body.append('phone', infoForm.value.phone.trim());
     if (selectedImage.value) body.append('profile_image_file', selectedImage.value);
-    await fetchWrapper.put(`${import.meta.env.VITE_API_URL}/auth/profil/info`, body);
+    await fetchWrapper.put(apiUrl('auth/profil/info'), body);
     await loadProfile();
     selectedImage.value = null;
     if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
@@ -132,7 +133,7 @@ const changePassword = async () => {
   }
   savingPassword.value = true;
   try {
-    const response = (await fetchWrapper.put(`${import.meta.env.VITE_API_URL}/auth/change-password`, {
+    const response = (await fetchWrapper.put(apiUrl('auth/change-password'), {
       old_password: passwordForm.value.current,
       password: passwordForm.value.password,
       password_confirm: passwordForm.value.confirm
