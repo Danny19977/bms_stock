@@ -3,7 +3,8 @@ import { router } from '@/router';
 import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { useNotificationStore } from '@/stores/notificationStore';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/auth`;
+const apiBaseUrl = import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+const baseUrl = `${apiBaseUrl.endsWith('/api') ? apiBaseUrl : `${apiBaseUrl}/api`}/auth`;
 
 export const useAuthStore = defineStore({
   id: 'auth',
